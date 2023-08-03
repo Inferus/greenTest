@@ -1,10 +1,19 @@
 # Test Task GreenApi
 
-## Requirements
+## System Requirements
 
 - Docker
 
 ## How To Run
+
+### Clone Repo
+
+```
+git clone https://github.com/Inferus/greenTest.git
+
+```
+
+### Run Docker
 
 ```
 docker-compose up
