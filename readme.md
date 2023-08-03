@@ -17,3 +17,9 @@ git clone https://github.com/Inferus/greenTest.git
 ```
 docker-compose up
 ```
+
+### Hit The Endpoint
+
+```
+localhost:4000/shoes
+```
