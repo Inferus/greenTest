@@ -2,13 +2,15 @@ import amqp from "amqplib"
 import express from "express"
 import dotenv from "dotenv"
 import { v4 as uuid } from "uuid"
-import pino from "pino"
+import {pino} from "pino"
 
+const logger = pino()
 dotenv.config()
 
 const app = express()
 app.use(express.json())
 app.get("/shoes", async (req, res) => {
+	logger.info("New shoes request")
 	const queue = "shoes"
 	const id = uuid()
 	let connection
@@ -25,7 +27,8 @@ app.get("/shoes", async (req, res) => {
 		await channel.consume(
 			queue,
 			(msg) => {
-				console.log("object")
+	logger.info("Shoe service responded")
+
 				if (msg.properties.correlationId === id) {
 					const shoesData = JSON.parse(msg.content.toString())
 					res.json(shoesData)
@@ -36,9 +39,12 @@ app.get("/shoes", async (req, res) => {
 
 		await channel.close()
 	} catch (err) {
-		console.warn(err)
+		logger.error(err ,"Error occured during shoe request handling")
 	} finally {
-		if (connection) await connection.close()
+		if (connection) {
+			await connection.close()
+			logger.info("Gateway disconnected from RabbitMQ")
+		}
 	}
 })
 

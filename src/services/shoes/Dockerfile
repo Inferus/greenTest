@@ -6,7 +6,6 @@ COPY . .
 
 RUN npm install
 
+RUN npm install -g pino-pretty
 
-EXPOSE 5672
-
-CMD [ "node", "shoes.js" ]
+CMD node shoes.js | pino-pretty
