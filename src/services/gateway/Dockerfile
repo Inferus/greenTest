@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:16
 
 WORKDIR /gateway
 
@@ -6,10 +6,10 @@ COPY . .
 
 RUN npm install
 
-RUN npm install -g pino-pretty
 
 # Bundle app source
 
-EXPOSE 3000
+EXPOSE 4000
 
-CMD node gateway.js | pino-pretty
+
+CMD ["node", "gateway.js"]

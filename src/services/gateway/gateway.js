@@ -1,11 +1,10 @@
 import amqp from "amqplib"
 import express from "express"
-import dotenv from "dotenv"
 import { v4 as uuid } from "uuid"
 import {pino} from "pino"
 
+
 const logger = pino()
-dotenv.config()
 
 const app = express()
 app.use(express.json())
